@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task3AutomaticTelephoneExchange.Enum
+namespace Task3AutomaticTelephoneExchange.Company
 {
-    public enum PortState
+    public class Person
     {
-        Connected,
-        Disconnected,
-        Call
     }
 }

@@ -8,62 +8,34 @@ namespace Task3AutomaticTelephoneExchange
 {
     public class Operator
     {
-        public List<Contract> Contracts { get; set; }
-        public List<Port> Ports { get; set; }
-        public List<Terminal> Terminals { get; set; }
-
-        private static Dictionary<Port, Terminal> allocatedTerminals = new Dictionary<Port, Terminal>();
-        private static Dictionary<string, Terminal> allocatedPhoneNumber = new Dictionary<string, Terminal>();
+        private Station station;
+        private BillingSystem billing;
+        private List<Contract> contracts;
 
         public Operator()
         {
-            Contracts = new List<Contract>();
-            Ports = new List<Port>();
-            Terminals = new List<Terminal>();
+            station = new Station();
+            billing = new BillingSystem();
+            contracts = new List<Contract>();
         }
 
-        public void NewContract(Contract contract)
+        public Contract NewContract(Client subscriber, Tariff type, int number)
         {
-            Contracts.Add(contract);
-            Ports.Add(new Port());
-            Ports[Ports.Count-1].PortStateEvent += Show_Message;
-            Ports[Ports.Count-1].CallStateEvent += PortCallEvent;
-            Terminals.Add(new Terminal());
+            Contract contract = new Contract(subscriber, type, number);
+            contracts.Add(contract);
+
+            return contract;
         }
 
-
-        //Обрабатываем события порта вызываемого абонента
-        private static void PortCallEvent(string message, string phoneNumber)
+        public Terminal GetTerminal(Contract contract)
         {
-            Console.WriteLine(message);
-
-            Terminal terminalInterlocutor = allocatedPhoneNumber.Where(x => x.Key == phoneNumber).Select(z => z.Value)
-                .FirstOrDefault();
-            Port portInterlocutor = allocatedTerminals.Where(x => x.Value.Id == terminalInterlocutor.Id)
-                .Select(z => z.Key).FirstOrDefault();
-
-            if (portInterlocutor.ConnectionTerminal == true)
-            {
-                if (portInterlocutor.TalkState == false)
-                {
-                    portInterlocutor.IncomingCall(phoneNumber, terminalInterlocutor);
-                }
-                else
-                {
-                    Console.WriteLine("Line is busy."); //Сообщение: "Линия занята"
-                }
-            }
-            else
-            {
-                Console.WriteLine(
-                    "The subscriber terminal is not connected to the port."); //Сообщение: "Терминал абонета не подключен к порту"
-            }
+            return station.GetTerminal(contract);
         }
 
-        //Обработка событий порта вызывающего абонета
-        private static void Show_Message(string message)
+        public IEnumerable<Report> GetBillingReport(int number)
         {
-            Console.WriteLine(message);
+            var contract = contracts.SingleOrDefault(x => x.TelephoneNumber == number);
+            return contract != null ? billing.GetBillingReport(station.CallHistory, contract) : new List<Report>();
         }
     }
 }
