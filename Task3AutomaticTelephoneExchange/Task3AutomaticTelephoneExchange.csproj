@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\PortState.cs" />
+    <Compile Include="Company\Port.cs" />
+    <Compile Include="Station.cs" />
     <Compile Include="Extra\FullName.cs" />
     <Compile Include="Company\Operator.cs" />
     <Compile Include="Company\Contract.cs" />
@@ -55,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Billing\" />
-    <Folder Include="Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
