@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task3AutomaticTelephoneExchange.Extra;
 
 namespace Task3AutomaticTelephoneExchange
 {
@@ -10,7 +11,11 @@ namespace Task3AutomaticTelephoneExchange
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Operator company = new Operator();
+
+            company.NewContract(new Contract(new Subscriber(new FullName("Vanya", "Petrov"))));
+            company.NewContract(new Contract(new Subscriber(new FullName("Nastya", "Listov"))));
+
             Console.ReadKey();
         }
     }
