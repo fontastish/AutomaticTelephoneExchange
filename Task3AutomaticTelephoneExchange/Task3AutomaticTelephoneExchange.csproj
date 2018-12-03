@@ -42,10 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enum\PortState.cs" />
     <Compile Include="Billing\Port.cs" />
     <Compile Include="Company\Operator.cs" />
-    <Compile Include="Extra\CallHistory.cs" />
+    <Compile Include="Company\CallHistory.cs" />
     <Compile Include="Extra\FullName.cs" />
     <Compile Include="Company\Contract.cs" />
     <Compile Include="Subscriber.cs" />

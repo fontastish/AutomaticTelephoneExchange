@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Task3AutomaticTelephoneExchange.Billing;
+using Task3AutomaticTelephoneExchange.Company;
+using Task3AutomaticTelephoneExchange.Extra;
 
-namespace Task3AutomaticTelephoneExchange.Company
+namespace Task3AutomaticTelephoneExchange
 {
     public class Subscriber
     {
         public FullName Name { get; private set; }
         public Terminal Terminal { get; set; }
+        public List<CallHistory> CallHistory { get; set; }
 
         public Subscriber(FullName name)
         {
             Name = name;
+            CallHistory=new List<CallHistory>();
         }
 
         public void AssignTerminal(Terminal terminal)
@@ -31,9 +32,10 @@ namespace Task3AutomaticTelephoneExchange.Company
             Terminal.DisconnectToPort(Name);
         }
 
-        public void OutboundСall(string phoneNumberInterlocutor)
+        public void OutboundСall(string phoneNumberInterlocutor,Tariff tariff)
         {
             Terminal.OutboundСallToPort(Name, phoneNumberInterlocutor);
+            CallHistory.Add(new CallHistory(phoneNumberInterlocutor,tariff));
         }
 
         public void EndCall()

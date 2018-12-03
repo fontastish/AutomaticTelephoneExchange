@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Task3AutomaticTelephoneExchange.Company;
+using Task3AutomaticTelephoneExchange.Extra;
 
 namespace Task3AutomaticTelephoneExchange
 {
@@ -16,21 +17,21 @@ namespace Task3AutomaticTelephoneExchange
 
             Operator company = new Operator();                                          // Cоздаём оператора
             Subscriber abonent1 = new Subscriber(new FullName("Jack", "Woker"));            //Создаём Клиент 
-            Contract contractSubscriber1 = company.NewContract(abonent1, Tariff.Standart);      //Подписываем с ним контракт
+            Contract contractSubscriber1 = company.NewContract(abonent1);      //Подписываем с ним контракт
             abonent1.AssignTerminal(company.GetTerminal(contractSubscriber1));                  //Выдаём терминал
             abonent1.Terminal.AssignPort(company.GetPort(contractSubscriber1));                 //Выдаём порт
             abonent1.ConnectTerminalToPort();                                                   //Подключаем терминал к порту
 
             Thread.Sleep(100);
             Subscriber abonent2 = new Subscriber(new FullName("Nastya", "Listova"));
-            Contract contractSubscriber2 = company.NewContract(abonent2, Tariff.Standart);
+            Contract contractSubscriber2 = company.NewContract(abonent2);
             abonent2.AssignTerminal(company.GetTerminal(contractSubscriber2));
             abonent2.Terminal.AssignPort(company.GetPort(contractSubscriber2));
             abonent2.ConnectTerminalToPort();
 
             Thread.Sleep(100);
             Subscriber abonent3 = new Subscriber(new FullName("Le Dun", "Ha"));
-            Contract contractSubscriber3 = company.NewContract(abonent3, Tariff.Standart);
+            Contract contractSubscriber3 = company.NewContract(abonent3);
             abonent3.AssignTerminal(company.GetTerminal(contractSubscriber3));
             abonent3.Terminal.AssignPort(company.GetPort(contractSubscriber3));
             abonent3.ConnectTerminalToPort();
@@ -44,11 +45,11 @@ namespace Task3AutomaticTelephoneExchange
 
             Console.WriteLine(line);
             Thread.Sleep(1000);
-            abonent1.OutboundСall(contractSubscriber2.TelephoneNumber);
+            abonent1.OutboundСall(contractSubscriber2.TelephoneNumber,Tariff.Standart);
 
             Console.WriteLine(line);
             Thread.Sleep(1000);
-            abonent3.OutboundСall(contractSubscriber2.TelephoneNumber);
+            abonent3.OutboundСall(contractSubscriber2.TelephoneNumber,Tariff.Unlimited);
 
             Console.WriteLine(line);
             Thread.Sleep(1000);
@@ -57,7 +58,7 @@ namespace Task3AutomaticTelephoneExchange
             abonent2.EndCall();
 
             Console.WriteLine(line);
-            abonent3.OutboundСall(contractSubscriber2.TelephoneNumber);
+            abonent3.OutboundСall(contractSubscriber2.TelephoneNumber,Tariff.Unlimited);
 
             Console.WriteLine(line);
             

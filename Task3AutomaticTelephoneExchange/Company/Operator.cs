@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task3AutomaticTelephoneExchange.Billing;
 
 namespace Task3AutomaticTelephoneExchange.Company
 {
@@ -20,10 +21,10 @@ namespace Task3AutomaticTelephoneExchange.Company
         }
 
 
-        public Contract NewContract(Subscriber subscriber, Tariff tariff)
+        public Contract NewContract(Subscriber subscriber)
         {
             Random random = new Random();
-            Contract contract = new Contract(subscriber, tariff, "+37529" + random.Next(1000000, 9999999).ToString());
+            Contract contract = new Contract(subscriber, "+37529" + random.Next(1000000, 9999999).ToString());
             Contracts.Add(contract);
             var port = new Port();
             Ports.Add(port);

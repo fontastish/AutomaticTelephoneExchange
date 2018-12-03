@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Task3AutomaticTelephoneExchange.Company;
+using Task3AutomaticTelephoneExchange.Extra;
 
-namespace Task3AutomaticTelephoneExchange.Company
+namespace Task3AutomaticTelephoneExchange.Billing
 {
     public class Port
     {
