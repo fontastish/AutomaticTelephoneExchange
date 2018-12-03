@@ -44,21 +44,20 @@
   <ItemGroup>
     <Compile Include="Enum\PortState.cs" />
     <Compile Include="Company\Port.cs" />
-    <Compile Include="Station.cs" />
+    <Compile Include="Billing\Station.cs" />
     <Compile Include="Extra\FullName.cs" />
     <Compile Include="Company\Operator.cs" />
     <Compile Include="Company\Contract.cs" />
-    <Compile Include="Extra\Person.cs" />
+    <Compile Include="Subscriber.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Company\Tariff.cs" />
-    <Compile Include="Tariff.cs" />
+    <Compile Include="Enum\TariffName.cs" />
+    <Compile Include="Billing\Terminal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Billing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

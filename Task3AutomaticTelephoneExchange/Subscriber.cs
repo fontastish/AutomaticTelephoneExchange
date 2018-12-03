@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Task3AutomaticTelephoneExchange.Company
 {
-    public class Person
+    public class Subscriber
     {
         public FullName Name { get; private set; }
+        public Terminal Terminal { get; set; }
 
-        public Person(FullName name)
+        public Subscriber(FullName name)
         {
             Name = name;
         }

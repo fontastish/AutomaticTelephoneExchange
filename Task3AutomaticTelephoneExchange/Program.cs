@@ -12,12 +12,10 @@ namespace Task3AutomaticTelephoneExchange
         static void Main(string[] args)
         {
             Operator company = new Operator();
-            Tariff standartTariff = new Tariff(10,"Standart");
-            Contract contractSubscriber1 = company.NewContract(new Person(new FullName("Jack", "Woker")), standartTariff);
-            Contract contractSubscriber2 = company.NewContract(new Person(new FullName("Nastya", "Listova")), standartTariff);
+            Contract contractSubscriber1 = company.NewContract(new Person(new FullName("Jack", "Woker")), Tariff.Standart);
+            Contract contractSubscriber2 = company.NewContract(new Person(new FullName("Nastya", "Listova")), Tariff.Standart);
 
-            //company.NewContract(new Contract(new Subscriber(new FullName("Vanya", "Petrov"))));
-            //company.NewContract(new Contract(new Subscriber(new FullName("Nastya", "Listov"))));
+
 
             Console.ReadKey();
         }

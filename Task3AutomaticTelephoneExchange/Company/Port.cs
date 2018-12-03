@@ -8,87 +8,62 @@ namespace Task3AutomaticTelephoneExchange.Company
 {
     public class Port
     {
-        public PortState State { get; set; }
+        public Guid Id { get; private set; }
+        public bool ConnectionTerminal { get; private set; } = false;
+        public bool TalkState { get; private set; } = false; //Состояние разговара
 
-        public Guid CurrentCallId { get; private set; }
-
-        public event EventHandler<CallEventArgs> CallEvent = (object sender, CallEventArgs e) => { };
-        public event EventHandler<AnswerEventArgs> AnswerEvent = (object sender, AnswerEventArgs e) => { };
-        public event EventHandler<RejectEventArgs> RejectEvent = (object sender, RejectEventArgs e) => { };
-
-        public event EventHandler<CallEventArgs> IncomingCallEvent = (object sender, CallEventArgs e) => { };
+        public delegate void PortStatus(string message);
+        public delegate void CallStatus(string message, string phoneNumberInterlocutor);
+        public event PortStatus PortStateEvent;
+        public event CallStatus CallStateEvent;
 
         public Port()
         {
-            State = PortState.Connected;
+            Id = Guid.NewGuid();
         }
 
-        public void OutgoingCall(object sender, CallEventArgs e)
+        public void Connect(string fio)
         {
-            if (State == PortState.Connected)
-            {
-                State = PortState.Call;
+            ConnectionTerminal = true;
 
-                CurrentCallId = Guid.NewGuid();
-                e.Id = CurrentCallId;
-                Console.WriteLine("Port\t -> OutgoingCall: id {0}", CurrentCallId);
-                CallEvent(sender, e);
+            if (PortStateEvent != null)
+            {
+                PortStateEvent($"Abonent " + fio + " connected the terminal to the port."); //Сообщение: "Абонент ФИО подключил терминал к порту"
             }
         }
 
-        public void IncomingCall(int telephoneNumber, int targetTelephoneNumber, Guid id)
+        public void Disconnect(string fio)
         {
-            if (State == PortState.Connected)
-            {
-                State = PortState.Call;
+            ConnectionTerminal = false;
 
-                CurrentCallId = id;
-                Console.WriteLine("Port\t -> IncomingCall: id {0}", CurrentCallId);
-                IncomingCallEvent(this, new CallEventArgs(telephoneNumber, targetTelephoneNumber));
+            if (PortStateEvent != null)
+            {
+                PortStateEvent($"Abonent " + fio + " disconnected the terminal from the port.");  //Сообщение: "Абонент ФИО отключил терминал от порта"
             }
         }
 
-        public void CallStarted(object sender, AnswerEventArgs e)
+        //Исходящий вызов
+        public void OutboundСall(string fio, string phoneNumberInterlocutor)
         {
-            if (State == PortState.Call)
+            if (CallStateEvent != null)
             {
-                e.Id = CurrentCallId;
-                Console.WriteLine("Port\t -> CallStarted: id {0}", CurrentCallId);
-                AnswerEvent(sender, e);
+                TalkState = true;
+                CallStateEvent($"Abonent " + fio + " calls the caller by phone number " + phoneNumberInterlocutor, phoneNumberInterlocutor); // Сообщение: "Абонент ФИО вызывает абонета по номеру телефона"
             }
         }
 
-        public void CallStopped(object sender, RejectEventArgs e)
+        //Входящий вызов
+        public void IncomingCall(string phoneNumberInterlocutor, Terminal terminalInterlocutor)
         {
-            if (State == PortState.Call)
-            {
-                e.Id = CurrentCallId;
-#if DEBUG
-                Console.WriteLine("Port\t -> CallRejecting: id {0}", CurrentCallId);
-#endif
-                Reset();
-
-                RejectEvent(sender, e);
-            }
+            TalkState = true;
+            terminalInterlocutor.IncomingСall();
         }
 
-        public void Reset()
+        //Закончить звонок
+        public void EndCall(string fio)
         {
-            State = PortState.Connected;
-#if DEBUG
-            Console.WriteLine("Port\t -> Disconnect");
-#endif
-            CurrentCallId = Guid.Empty;
-        }
-
-        public void Connect(object sender, EventArgs e)
-        {
-            State = PortState.Connected;
-        }
-
-        public void Disconnect(object sender, EventArgs e)
-        {
-            State = PortState.Disconnected;
+            TalkState = false;
+            PortStateEvent($"Abonent " + fio + " the call ended.");
         }
     }
 }
