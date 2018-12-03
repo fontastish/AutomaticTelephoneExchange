@@ -12,12 +12,10 @@ namespace Task3AutomaticTelephoneExchange
         public delegate void Call(string message);
         public event Call IncomingСallEvent;
 
-        public Guid Id { get; private set; }
-        private Port Port { get; set; }
+        public Port Port { get; set; }
 
         public Terminal()
         {
-            Id = Guid.NewGuid();
             IncomingСallEvent += IncomingСallMessage;
         }
 

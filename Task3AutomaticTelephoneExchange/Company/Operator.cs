@@ -50,6 +50,17 @@ namespace Task3AutomaticTelephoneExchange.Company
             Console.WriteLine(message);
         }
 
+        public bool PhoneNumberIsExist(string phoneNumber)
+        {
+            foreach (var x in Contracts)
+            {
+                if (x.TelephoneNumber == phoneNumber)
+                    return true;
+            }
+
+            return false;
+        }
+
 
         //Обрабатываем события порта вызываемого абонента
         private void PortCallEvent(string message, string phoneNumber)
@@ -57,7 +68,11 @@ namespace Task3AutomaticTelephoneExchange.Company
             Console.WriteLine(message);
             var indexSubscriber = Contracts.FindIndex(x => x.TelephoneNumber == phoneNumber);
 
-            if (Ports[indexSubscriber].ConnectionTerminal == true)
+            if (indexSubscriber==-1)
+            {
+                Console.WriteLine("A call can not be made. You enter a wrong phone number.");
+            }
+            else if  (Ports[indexSubscriber].ConnectionTerminal == true)
             {
                 if (Ports[indexSubscriber].TalkState == false)
                 {
