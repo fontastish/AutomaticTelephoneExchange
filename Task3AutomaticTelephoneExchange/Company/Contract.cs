@@ -10,12 +10,12 @@ namespace Task3AutomaticTelephoneExchange
     public class Contract
     {
         public string TelephoneNumber { get; private set; }
-        public Person Person { get; private set; }
+        public Subscriber Subscriber { get; private set; }
         public Tariff Tariff { get; private set; }
 
-        public Contract(Person person, Tariff tariff, string number)
+        public Contract(Subscriber subscriber, Tariff tariff, string number)
         {
-            Person = person;
+            Subscriber = subscriber;
             Tariff = tariff;
             TelephoneNumber = number;
         }

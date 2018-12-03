@@ -21,14 +21,5 @@ namespace Task3AutomaticTelephoneExchange
             CostOfMinute = cost;
         }
 
-        //public double GetCostOfMinute(CallType type)
-        //{
-        //    switch (type)
-        //    {
-        //        case CallType.Incoming: return CostOfMinuteOutgoingCall;
-        //        case CallType.Outgoing: return CostOfMinuteIncomingCall;
-        //        default: return 0;
-        //    }
-        //}
     }
 }

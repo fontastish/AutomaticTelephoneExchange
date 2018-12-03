@@ -46,7 +46,7 @@
     <Compile Include="Company\Port.cs" />
     <Compile Include="Billing\Station.cs" />
     <Compile Include="Extra\FullName.cs" />
-    <Compile Include="Company\Operator.cs" />
+    <Compile Include="Extra\Operator.cs" />
     <Compile Include="Company\Contract.cs" />
     <Compile Include="Subscriber.cs" />
     <Compile Include="Program.cs" />

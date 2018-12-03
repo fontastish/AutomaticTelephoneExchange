@@ -15,5 +15,30 @@ namespace Task3AutomaticTelephoneExchange.Company
         {
             Name = name;
         }
+
+        public void AssignTerminal(Terminal terminal)
+        {
+            Terminal = terminal;
+        }
+
+        public void ConnectTerminalToPort()
+        {
+            Terminal.ConnectToPort(Name);
+        }
+
+        public void DisconnectTerminalToPort()
+        {
+            Terminal.DisconnectToPort(Name);
+        }
+
+        public void OutboundСall(string phoneNumberInterlocutor)
+        {
+            Terminal.OutboundСallToPort(Name, phoneNumberInterlocutor);
+        }
+
+        public void EndCall()
+        {
+            Terminal.EndCallToPort(Name);
+        }
     }
 }

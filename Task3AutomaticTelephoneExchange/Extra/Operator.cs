@@ -20,10 +20,10 @@ namespace Task3AutomaticTelephoneExchange
             contracts = new List<Contract>();
         }
 
-        public Contract NewContract(Person person, Tariff tariff)
+        public Contract NewContract(Subscriber subscriber, Tariff tariff)
         {
             Random random = new Random();
-            Contract contract = new Contract(person, tariff, "+37529"+random.Next(1000000,9999999).ToString() );
+            Contract contract = new Contract(subscriber, tariff, "+37529"+random.Next(1000000,9999999).ToString() );
             contracts.Add(contract);
 
             return contract;

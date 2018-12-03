@@ -12,11 +12,7 @@ namespace Task3AutomaticTelephoneExchange.Company
         public List<Port> Ports { get; set; }
         public List<Terminal> Terminals { get; set; }
 
-
-        private static Dictionary<Port, Terminal> allocatedTerminals = new Dictionary<Port, Terminal>();
-        private static Dictionary<string, Terminal> allocatedPhoneNumber = new Dictionary<string, Terminal>();
-
-        public Station(List<Contract> contracts, List<Port> ports, List<Terminal> terminals)
+        public Station()
         {
             Contracts = new List<Contract>();
             Ports = new List<Port>();
@@ -24,10 +20,10 @@ namespace Task3AutomaticTelephoneExchange.Company
         }
 
 
-        public Contract NewContract(Person person, Tariff tariff)
+        public Contract NewContract(Subscriber subscriber, Tariff tariff)
         {
             Random random = new Random();
-            Contract contract = new Contract(person, tariff, "+37529" + random.Next(1000000, 9999999).ToString());
+            Contract contract = new Contract(subscriber, tariff, "+37529" + random.Next(1000000, 9999999).ToString());
             Contracts.Add(contract);
             var port = new Port();
             Ports.Add(port);
@@ -37,7 +33,17 @@ namespace Task3AutomaticTelephoneExchange.Company
             return contract;
         }
 
+        public Terminal GetTerminal(Contract contract)
+        {
+            var index = Contracts.FindIndex(x => x == contract);
+            return Terminals[index];
+        }
 
+        public Port GetPort(Contract contract)
+        {
+            var index = Contracts.FindIndex(x => x == contract);
+            return Ports[index];
+        }
 
         private static void Show_Message(string message)
         {
@@ -45,33 +51,17 @@ namespace Task3AutomaticTelephoneExchange.Company
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
         //Обрабатываем события порта вызываемого абонента
-        private static void PortCallEvent(string message, string phoneNumber)
+        private void PortCallEvent(string message, string phoneNumber)
         {
             Console.WriteLine(message);
+            var indexSubscriber = Contracts.FindIndex(x => x.TelephoneNumber == phoneNumber);
 
-            Terminal terminalInterlocutor = allocatedPhoneNumber.Where(x => x.Key == phoneNumber).Select(z => z.Value).FirstOrDefault();
-            Port portInterlocutor = allocatedTerminals.Where(x => x.Value.Id == terminalInterlocutor.Id).Select(z => z.Key).FirstOrDefault();
-
-            if (portInterlocutor.ConnectionTerminal == true)
+            if (Ports[indexSubscriber].ConnectionTerminal == true)
             {
-                if (portInterlocutor.TalkState == false)
+                if (Ports[indexSubscriber].TalkState == false)
                 {
-                    portInterlocutor.IncomingCall(phoneNumber, terminalInterlocutor);
+                    Ports[indexSubscriber].IncomingCall(phoneNumber, Terminals[indexSubscriber]);
                 }
                 else
                 {

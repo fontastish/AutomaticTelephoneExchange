@@ -26,11 +26,11 @@ namespace Task3AutomaticTelephoneExchange
             Port = port;
         }
 
-        public void ConnectToPort(string FIO)
+        public void ConnectToPort(FullName name)
         {
             if (Port.ConnectionTerminal == false)
             {
-                Port.Connect(FIO);
+                Port.Connect(name);
             }
             else
             {
@@ -38,11 +38,11 @@ namespace Task3AutomaticTelephoneExchange
             }
         }
 
-        public void DisconnectToPort(string FIO)
+        public void DisconnectToPort(FullName name)
         {
             if (Port.ConnectionTerminal == true)
             {
-                Port.Disconnect(FIO);
+                Port.Disconnect(name);
             }
             else
             {
@@ -50,13 +50,13 @@ namespace Task3AutomaticTelephoneExchange
             }
         }
 
-        public void OutboundСallToPort(string FIO, string phoneNumberInterlocutor)  //Исходящий вызов
+        public void OutboundСallToPort(FullName name, string phoneNumberInterlocutor)  //Исходящий вызов
         {
             if (Port.ConnectionTerminal == true)
             {
                 if (phoneNumberInterlocutor != "")
                 {
-                    Port.OutboundСall(FIO, phoneNumberInterlocutor);
+                    Port.OutboundСall(name, phoneNumberInterlocutor);
                 }
                 else
                 {
@@ -69,9 +69,9 @@ namespace Task3AutomaticTelephoneExchange
             }
         }
 
-        public void EndCallToPort(string FIO) //Закончить звонок
+        public void EndCallToPort(FullName name) //Закончить звонок
         {
-            Port.EndCall(FIO);
+            Port.EndCall(name);
         }
 
         public void IncomingСall() //Входящий вызов 

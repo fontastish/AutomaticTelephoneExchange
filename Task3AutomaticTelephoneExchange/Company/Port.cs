@@ -8,7 +8,6 @@ namespace Task3AutomaticTelephoneExchange.Company
 {
     public class Port
     {
-        public Guid Id { get; private set; }
         public bool ConnectionTerminal { get; private set; } = false;
         public bool TalkState { get; private set; } = false; //Состояние разговара
 
@@ -17,38 +16,33 @@ namespace Task3AutomaticTelephoneExchange.Company
         public event PortStatus PortStateEvent;
         public event CallStatus CallStateEvent;
 
-        public Port()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public void Connect(string fio)
+        public void Connect(FullName name)
         {
             ConnectionTerminal = true;
 
             if (PortStateEvent != null)
             {
-                PortStateEvent($"Abonent " + fio + " connected the terminal to the port."); //Сообщение: "Абонент ФИО подключил терминал к порту"
+                PortStateEvent($"Abonent " + name + " connected the terminal to the port."); //Сообщение: "Абонент ФИО подключил терминал к порту"
             }
         }
 
-        public void Disconnect(string fio)
+        public void Disconnect(FullName name)
         {
             ConnectionTerminal = false;
 
             if (PortStateEvent != null)
             {
-                PortStateEvent($"Abonent " + fio + " disconnected the terminal from the port.");  //Сообщение: "Абонент ФИО отключил терминал от порта"
+                PortStateEvent($"Abonent " + name + " disconnected the terminal from the port.");  //Сообщение: "Абонент ФИО отключил терминал от порта"
             }
         }
 
         //Исходящий вызов
-        public void OutboundСall(string fio, string phoneNumberInterlocutor)
+        public void OutboundСall(FullName name, string phoneNumberInterlocutor)
         {
             if (CallStateEvent != null)
             {
                 TalkState = true;
-                CallStateEvent($"Abonent " + fio + " calls the caller by phone number " + phoneNumberInterlocutor, phoneNumberInterlocutor); // Сообщение: "Абонент ФИО вызывает абонета по номеру телефона"
+                CallStateEvent($"Abonent " + name + " calls the caller by phone number " + phoneNumberInterlocutor, phoneNumberInterlocutor); // Сообщение: "Абонент ФИО вызывает абонета по номеру телефона"
             }
         }
 
@@ -60,10 +54,10 @@ namespace Task3AutomaticTelephoneExchange.Company
         }
 
         //Закончить звонок
-        public void EndCall(string fio)
+        public void EndCall(FullName name)
         {
             TalkState = false;
-            PortStateEvent($"Abonent " + fio + " the call ended.");
+            PortStateEvent($"Abonent " + name + " the call ended.");
         }
     }
 }

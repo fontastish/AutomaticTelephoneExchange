@@ -16,5 +16,10 @@ namespace Task3AutomaticTelephoneExchange.Company
             FirstName = firstName;
             SecondName = secondName;
         }
+
+        public override string ToString()
+        {
+            return FirstName+ " " + SecondName;
+        }
     }
 }
