@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Task3AutomaticTelephoneExchange.Company
 {
-    public class Station
+    public class Operator
     {
         public List<Contract> Contracts { get; set; }
         public List<Port> Ports { get; set; }
         public List<Terminal> Terminals { get; set; }
 
-        public Station()
+        public Operator()
         {
             Contracts = new List<Contract>();
             Ports = new List<Port>();
